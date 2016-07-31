@@ -21,6 +21,12 @@ var routes = Routes{
 		Index,
 	},
 	Route{
+		"ShowTodoForm",
+		"GET",
+		"/addTodo",
+		ShowTodoForm,
+	},
+	Route{
 		"TodoIndex",
 		"GET",
 		"/todos",

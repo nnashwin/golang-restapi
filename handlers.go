@@ -81,5 +81,8 @@ func TodoCreate(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	fmt.Println("What I need to do: ", result.Name)
+}
+
+func ShowTodoForm(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Showing the form!")
 }
