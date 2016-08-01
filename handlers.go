@@ -6,14 +6,10 @@ import (
 	"github.com/gorilla/mux"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
-	"html"
 	"log"
 	"net/http"
+	//	"reflect"
 )
-
-func Index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hi there, I love %s", html.EscapeString(r.URL.Path))
-}
 
 func TodoIndex(w http.ResponseWriter, r *http.Request) {
 	session, err := mgo.Dial("mongodb://localhost")
@@ -53,6 +49,10 @@ func TodoShow(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	if err := json.NewEncoder(w).Encode(&result); err != nil {
+		panic(err)
+	}
 }
 
 func TodoCreate(w http.ResponseWriter, r *http.Request) {
@@ -60,16 +60,24 @@ func TodoCreate(w http.ResponseWriter, r *http.Request) {
 
 	// connect with mongoDb
 	session, err := mgo.Dial("mongodb://localhost")
-
 	if err != nil {
 		panic(err)
 	}
 	defer session.Close()
 
-	c := session.DB("test").C("todos")
+	r.ParseForm()
+	r.Form["isCompleted"] = []string{"false"}
+	todoObj, _ := json.Marshal(r.Form)
 
-	err = c.Insert(&Todo{"101", "drink Ale", false},
-		&Todo{"102", "Add food to things", false})
+	c := session.DB("test").C("todos")
+	record := Todo{}
+	error := json.Unmarshal(todoObj, &record)
+
+	if error != nil {
+		log.Fatal(error)
+	}
+	fmt.Println(err)
+	c.Insert(record)
 
 	if err != nil {
 		log.Fatal(err)
@@ -80,9 +88,4 @@ func TodoCreate(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-}
-
-func ShowTodoForm(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Showing the form!")
 }

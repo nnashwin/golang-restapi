@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<form id="todoForm" action="/todos/create" method="post">
+    <legend>Add Todo</legend>
+    <p>
+        <input type="text" name="todoTitle" placeholder="name" value="" />
+        <label for="todoTitle">Todo Title</label>
+    </p>
+    <p>
+        <input type="date" name="completedBy" value="" />
+        <label for="completedBy">Completed By</label>
+    </p>
+    <input type="hidden" name="complete" value="false" />
+    <input type="submit" form="todoForm" />
+</form>
+</body>
+</html>
