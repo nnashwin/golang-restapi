@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	//	"fmt"
 	"github.com/gorilla/mux"
-	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
-	//	"html/template"
+	"html/template"
 	"log"
 	"net/http"
+	"strings"
 	//"reflect"
 )
 
@@ -58,19 +58,25 @@ func TodoHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func loadTodo(name string) {
+func showTodoInHtml(w http.ResponseWriter, r *http.Request) {
+	// session := NewSession("mongodb://localhost")
 
+	// c := session.DB("test").C("todos")
+
+	// result := Todo{}
+	// err := c.Find(bson.M{"id": todoId}).One(&result)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	t := template.New("todo")
+	t, _ = t.ParseFiles("static/todoList.html")
+	todo := Todo{"tyler", false, "completionDate"}
+	err := t.ExecuteTemplate(w, "todoList.html", todo)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
-
-// func DialMongo(dbAddr string) {
-// 	session, err := mgo.Dial(dbAddr)
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	defer session.Close()
-
-// 	return session
-// }
 
 func TodoCreate(w http.ResponseWriter, r *http.Request) {
 	// connect with mongoDb
@@ -79,7 +85,9 @@ func TodoCreate(w http.ResponseWriter, r *http.Request) {
 	c := session.DB("test").C("todos")
 
 	r.ParseForm()
-	record := Todo{(r.Form["todoTitle"]), false, r.Form["completedBy"]}
+	stringTitle := strings.Join(r.Form["todoTitle"], "")
+	completeDate := strings.Join(r.Form["completedBy"], "")
+	record := Todo{stringTitle, false, completeDate}
 
 	err := c.Insert(&record)
 	if err != nil {

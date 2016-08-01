@@ -32,4 +32,10 @@ var routes = Routes{
 		"/todos/create",
 		TodoCreate,
 	},
+	Route{
+		"showTodoInHtml",
+		"GET",
+		"/todos/seeTodo",
+		showTodoInHtml,
+	},
 }
