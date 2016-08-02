@@ -29,7 +29,7 @@ var routes = Routes{
 	Route{
 		"TodoCreate",
 		"POST",
-		"/todos/create",
+		"/todos",
 		TodoCreate,
 	},
 	Route{

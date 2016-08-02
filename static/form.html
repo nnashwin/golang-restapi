@@ -3,7 +3,7 @@
 <head>
 </head>
 <body>
-<form id="todoForm" action="/todos/create" method="post">
+<form id="todoForm" action="/todos" method="post">
     <legend>Add Todo</legend>
     <p>
         <input type="text" name="todoTitle" placeholder="name" value="" />
@@ -12,6 +12,10 @@
     <p>
         <input type="date" name="completedBy" value="" />
         <label for="completedBy">Completed By</label>
+    </p>
+    <p>
+        <input type="text" name="todoId" value="" />
+        <label for="todoId">Desired Id</label>
     </p>
     <input type="hidden" name="complete" value="false" />
     <input type="submit" form="todoForm" />
