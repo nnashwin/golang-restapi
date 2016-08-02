@@ -23,8 +23,8 @@ func getColl(dbAddr string, dbName string, collName string) *mgo.Collection {
 	return c
 }
 
-func getRecord(recordId string) Todo {
-	c := getColl("mongodb://localhost", "test", "todos")
+func getRecord(dbName string, collName string, recordId string) Todo {
+	c := getColl("mongodb://localhost", dbName, collName)
 
 	result := Todo{}
 	err := c.Find(bson.M{"id": recordId}).One(&result)
@@ -33,6 +33,18 @@ func getRecord(recordId string) Todo {
 	}
 
 	return result
+}
+
+func getAllRecords(dbName string, collName string) Todos {
+	c := getColl("mongodb://localhost", dbName, collName)
+
+	results := Todos{}
+	err := c.Find(nil).All(&results)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return results
 }
 
 // type DB struct {

@@ -15,27 +15,21 @@ type Routes []Route
 
 var routes = Routes{
 	Route{
-		"TodoIndex",
+		"ShowAllTodos",
 		"GET",
 		"/todos",
-		TodoIndex,
+		ShowAllTodos,
 	},
 	Route{
-		"TodoShow",
+		"ShowSingleTodo",
 		"GET",
 		"/todos/single/{todoId}",
-		TodoShow,
+		ShowSingleTodo,
 	},
 	Route{
 		"TodoCreate",
 		"POST",
 		"/todos",
 		TodoCreate,
-	},
-	Route{
-		"showTodoInHtml",
-		"GET",
-		"/todos/seeTodo",
-		showTodoInHtml,
 	},
 }

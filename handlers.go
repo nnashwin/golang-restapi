@@ -1,69 +1,39 @@
 package main
 
 import (
-	"encoding/json"
+	"fmt"
 	"github.com/gorilla/mux"
-	"gopkg.in/mgo.v2/bson"
 	"html/template"
 	"log"
 	"net/http"
 	"strings"
 )
 
-func TodoIndex(w http.ResponseWriter, r *http.Request) {
+var templates = template.Must(template.ParseGlob("static/*"))
+
+func ShowAllTodos(w http.ResponseWriter, r *http.Request) {
 	session := NewSession("mongodb://localhost")
 	defer session.Close()
 
-	c := session.DB("test").C("todos")
-
-	results := Todos{}
-	err := c.Find(nil).All(&results)
-	if err != nil {
-		log.Fatal(err)
+	results := getAllRecords("test", "todos")
+	templates.ExecuteTemplate(w, "index page", nil)
+	for i := 0; i < len(results); i++ {
+		templates.ExecuteTemplate(w, "todo", results[i])
 	}
-
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-
-	w.WriteHeader(http.StatusOK)
-
-	if err := json.NewEncoder(w).Encode(results); err != nil {
-		panic(err)
-	}
+	fmt.Println(len(results))
 }
 
-func TodoShow(w http.ResponseWriter, r *http.Request) {
+func ShowSingleTodo(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	todoId := vars["todoId"]
-
-	session := NewSession("mongodb://localhost")
-	defer session.Close()
-
-	c := session.DB("test").C("todos")
-
-	result := Todo{}
-
-	err := c.Find(bson.M{"id": todoId}).One(&result)
-	if err != nil {
-		log.Fatal(err)
-	}
-
+	record := getRecord("test", "todos", todoId)
+	showTodoInHtml(w, record)
 }
 
-func showTodoInHtml(w http.ResponseWriter, r *http.Request) {
-	// session := NewSession("mongodb://localhost")
-
-	// c := session.DB("test").C("todos")
-
-	// result := Todo{}
-	// err := c.Find(bson.M{"id": todoId}).One(&result)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	record := getRecord("123")
+func showTodoInHtml(w http.ResponseWriter, todo Todo) {
 	t := template.New("todo")
-	t, _ = t.ParseFiles("static/todoList.html")
-	err := t.ExecuteTemplate(w, "todoList.html", record)
+	t, _ = t.ParseFiles("static/singleTodoPage.html")
+	err := t.ExecuteTemplate(w, "singleTodoPage.html", todo)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -86,5 +56,5 @@ func TodoCreate(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	TodoIndex(w, r)
+	ShowAllTodos(w, r)
 }
