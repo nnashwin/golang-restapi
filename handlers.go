@@ -1,15 +1,16 @@
 package main
 
 import (
-	"fmt"
+	//	"fmt"
 	"github.com/gorilla/mux"
+	"gopkg.in/mgo.v2/bson"
 	"html/template"
 	"log"
 	"net/http"
 	"strings"
 )
 
-var templates = template.Must(template.ParseGlob("static/*"))
+var templates = template.Must(template.ParseGlob("static/tmpl/*"))
 
 func ShowAllTodos(w http.ResponseWriter, r *http.Request) {
 	session := NewSession("mongodb://localhost")
@@ -20,7 +21,6 @@ func ShowAllTodos(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < len(results); i++ {
 		templates.ExecuteTemplate(w, "todo", results[i])
 	}
-	fmt.Println(len(results))
 }
 
 func ShowSingleTodo(w http.ResponseWriter, r *http.Request) {
@@ -57,4 +57,21 @@ func TodoCreate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ShowAllTodos(w, r)
+}
+
+func DeleteTodo(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	todoId := vars["todoId"]
+
+	session := NewSession("mongodb://localhost")
+	defer session.Close()
+
+	c := session.DB("test").C("todos")
+	c.Remove(bson.M{"id": todoId})
+
+	ShowAllTodos(w, r)
+}
+
+func UpdateTodo(w http.ResponseWriter, r *http.Request) {
+
 }
