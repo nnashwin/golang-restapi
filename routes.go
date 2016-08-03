@@ -33,12 +33,6 @@ var routes = Routes{
 		TodoCreate,
 	},
 	Route{
-		"DeleteTodo",
-		"DELETE",
-		"/todos/remove/{todoId}",
-		DeleteTodo,
-	},
-	Route{
 		"UpdateTodo",
 		"POST",
 		"/todos/update/{todoId}",

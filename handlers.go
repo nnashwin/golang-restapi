@@ -1,7 +1,7 @@
 package main
 
 import (
-	//	"fmt"
+	"fmt"
 	"github.com/gorilla/mux"
 	"gopkg.in/mgo.v2/bson"
 	"html/template"
@@ -59,9 +59,10 @@ func TodoCreate(w http.ResponseWriter, r *http.Request) {
 	ShowAllTodos(w, r)
 }
 
-func DeleteTodo(w http.ResponseWriter, r *http.Request) {
+func DeleteTodo(w http.ResponseWriter, r *http.Request, todo Todo) {
 	vars := mux.Vars(r)
 	todoId := vars["todoId"]
+	fmt.Println(todo)
 
 	session := NewSession("mongodb://localhost")
 	defer session.Close()
