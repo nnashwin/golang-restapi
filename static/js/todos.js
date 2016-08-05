@@ -1,13 +1,27 @@
-window.onload = () => {
+document.addEventListener('DOMContentLoaded', () => {
     let deleteButtons = document.getElementsByClassName('delete_button')
 
     for (let i = 0; i < deleteButtons.length; i++) {
         let deleteButton = deleteButtons[i]
-        console.log(deleteButton)
-        console.log(i)
+        var todoId = deleteButton.previousElementSibling.innerHTML
+        let xhr = new XMLHttpRequest()
+        xhr.todoId = todoId
+
+        xhr.onreadystatechange = () => {
+            const DONE = 4
+            const OK = 200
+            if (xhr.readyState === DONE) {
+                if (xhr.status === OK) {
+                    console.log(xhr.responseText)
+                } else {
+                    console.log("Error: " + xhr.status)
+                }
+            }
+        }
+        xhr.open('DELETE', "todos/")
         deleteButton.addEventListener('click', (ev) => {
-            console.log(ev)
+            console.log(xhr)
+            xhr.send()
         })
     }
-}
-
+})

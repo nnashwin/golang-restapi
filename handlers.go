@@ -1,7 +1,8 @@
 package main
 
 import (
-	"fmt"
+	"encoding/json"
+	//	"fmt"
 	"github.com/gorilla/mux"
 	"gopkg.in/mgo.v2/bson"
 	"html/template"
@@ -9,6 +10,10 @@ import (
 	"net/http"
 	"strings"
 )
+
+type test_struct struct {
+	Test string
+}
 
 var templates = template.Must(template.ParseGlob("static/tmpl/*"))
 
@@ -59,11 +64,18 @@ func TodoCreate(w http.ResponseWriter, r *http.Request) {
 	ShowAllTodos(w, r)
 }
 
-func DeleteTodo(w http.ResponseWriter, r *http.Request, todo Todo) {
-	vars := mux.Vars(r)
-	todoId := vars["todoId"]
-	fmt.Println(todo)
+func HandleDelete(w http.ResponseWriter, r *http.Request) {
+	decoder := json.NewDecoder(r.Body)
+	var t Todo
+	err := decoder.Decode(&t)
+	if err != nil {
+		log.Fatal(err)
+	}
 
+	DeleteTodo(w, r, t.Id)
+}
+
+func DeleteTodo(w http.ResponseWriter, r *http.Request, todoId string) {
 	session := NewSession("mongodb://localhost")
 	defer session.Close()
 
