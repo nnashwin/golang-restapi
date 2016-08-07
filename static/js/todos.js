@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let deleteButton = deleteButtons[i]
         var todoId = deleteButton.previousElementSibling.innerHTML
         let xhr = new XMLHttpRequest()
-        xhr.todoId = todoId
 
         xhr.onreadystatechange = () => {
             const DONE = 4
@@ -18,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }
-        xhr.open('DELETE', "todos/")
+        xhr.open('DELETE', "/todos/delete/id=" + todoId)
         deleteButton.addEventListener('click', (ev) => {
             console.log(xhr)
             xhr.send()

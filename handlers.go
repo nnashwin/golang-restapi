@@ -1,7 +1,7 @@
 package main
 
 import (
-	"encoding/json"
+	//	"encoding/json"
 	//	"fmt"
 	"github.com/gorilla/mux"
 	"gopkg.in/mgo.v2/bson"
@@ -65,14 +65,9 @@ func TodoCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 func HandleDelete(w http.ResponseWriter, r *http.Request) {
-	decoder := json.NewDecoder(r.Body)
-	var t Todo
-	err := decoder.Decode(&t)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	DeleteTodo(w, r, t.Id)
+	vars := mux.Vars(r)
+	todoId := vars["todoId"]
+	DeleteTodo(w, r, todoId)
 }
 
 func DeleteTodo(w http.ResponseWriter, r *http.Request, todoId string) {
