@@ -27,6 +27,12 @@ var routes = Routes{
 		ShowSingleTodo,
 	},
 	Route{
+		"ShowCreateTodoForm",
+		"GET",
+		"/todos/createForm",
+		ShowCreateTodoForm,
+	},
+	Route{
 		"TodoCreate",
 		"POST",
 		"/todos",

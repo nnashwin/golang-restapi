@@ -37,8 +37,17 @@ func ShowSingleTodo(w http.ResponseWriter, r *http.Request) {
 
 func showTodoInHtml(w http.ResponseWriter, todo Todo) {
 	t := template.New("todo")
-	t, _ = t.ParseFiles("static/singleTodoPage.html")
+	t, _ = t.ParseFiles("static/tmpl/singleTodoPage.html")
 	err := t.ExecuteTemplate(w, "singleTodoPage.html", todo)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ShowCreateTodoForm(w http.ResponseWriter, r *http.Request) {
+	t := template.New("form")
+	t, _ = t.ParseFiles("static/tmpl/form.html")
+	err := t.ExecuteTemplate(w, "form.html", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
