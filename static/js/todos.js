@@ -1,3 +1,9 @@
+function showTodos (todos) {
+    
+}
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     let deleteButtons = document.getElementsByClassName('delete_button')
 
@@ -24,3 +30,4 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 })
+

@@ -22,10 +22,7 @@ func ShowAllTodos(w http.ResponseWriter, r *http.Request) {
 	defer session.Close()
 
 	results := getAllRecords("test", "todos")
-	templates.ExecuteTemplate(w, "index page", nil)
-	for i := 0; i < len(results); i++ {
-		templates.ExecuteTemplate(w, "todo", results[i])
-	}
+	templates.ExecuteTemplate(w, "index page", results)
 }
 
 func ShowSingleTodo(w http.ResponseWriter, r *http.Request) {
@@ -86,7 +83,6 @@ func DeleteTodo(w http.ResponseWriter, r *http.Request, todoId string) {
 	c := session.DB("test").C("todos")
 	c.Remove(bson.M{"id": todoId})
 
-	ShowAllTodos(w, r)
 }
 
 func UpdateTodo(w http.ResponseWriter, r *http.Request) {

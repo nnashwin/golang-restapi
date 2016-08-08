@@ -1,11 +1,13 @@
-{{define "todo"}}
-<div>
-    <h1>{{.Name}}</h1>
-</div>
-<div>
-    <div>{{.Due}}</div>
-    <div id="completeStatus">{{.Completed}}</div>
-    <div id="todoId">{{.Id}}</div>
-    <input class="delete_button" type="button" value="Delete">
-</div>
+{{define "todos"}}
+    {{ range . }}
+        <div>
+            <h1>{{.Name}}</h1>
+        </div>
+        <div>
+            <div>{{.Due}}</div>
+            <div id="completeStatus">{{.Completed}}</div>
+            <div id="todoId">{{.Id}}</div>
+            <input class="delete_button" type="button" value="Delete">
+        </div>
+    {{ end }}
 {{end}}
