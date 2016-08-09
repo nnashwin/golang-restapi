@@ -5,22 +5,12 @@
     {{template "form scripts"}}
 </head>
 <body>
-<form id="todoForm">
-    <legend>Add Todo</legend>
-    <p>
-        <input type="text" name="todoTitle" placeholder="name" value="" />
-        <label for="todoTitle">Todo Title</label>
-    </p>
-    <p>
-        <input type="date" name="completedBy" value="" />
-        <label for="completedBy">Completed By</label>
-    </p>
-    <p>
-        <input type="text" name="todoId" value="" />
-        <label for="todoId">Desired Id</label>
-    </p>
-    <input type="hidden" name="complete" value="false" />
-    <button type="submit" form="todoForm">Submit</button>
+<form method="post" name="todoForm">
+        <input class="formVal" type="text" name="todoTitle" placeholder="name"  />
+        <input class="formVal" type="date" name="completedBy"  />
+        <input class="formVal" type="text" name="todoId" value="Enter Here" />
+        <input class="formVal" type="hidden" name="complete" value="false" />
+        <input type="submit" value="Submit" />
 </form>
 </body>
 </html>

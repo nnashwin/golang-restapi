@@ -2,13 +2,11 @@ package main
 
 import (
 	//	"encoding/json"
-	//	"fmt"
 	"github.com/gorilla/mux"
 	"gopkg.in/mgo.v2/bson"
 	"html/template"
 	"log"
 	"net/http"
-	"strings"
 )
 
 type test_struct struct {
@@ -50,21 +48,25 @@ func ShowCreateTodoForm(w http.ResponseWriter, r *http.Request) {
 
 func CreateTodo(w http.ResponseWriter, r *http.Request) {
 	// connect with mongoDb
-	session := NewSession("mongodb://localhost")
-	defer session.Close()
+	// session := NewSession("mongodb://localhost")
+	// defer session.Close()
 
-	c := session.DB("test").C("todos")
+	//	c := session.DB("test").C("todos")
 
 	r.ParseForm()
-	todoId := strings.Join(r.Form["todoId"], "")
-	stringTitle := strings.Join(r.Form["todoTitle"], "")
-	completeDate := strings.Join(r.Form["completedBy"], "")
-	record := Todo{todoId, stringTitle, false, completeDate}
+	log.Println(r.PostFormValue("todoId"))
+	log.Println(r.PostFormValue("todoTitle"))
+	log.Println(r.PostFormValue("completedBy"))
+	//	decoder := json.NewDecoder(r.Body)
 
-	err := c.Insert(&record)
-	if err != nil {
-		log.Fatal(err)
-	}
+	var record Todo
+
+	log.Printf("%+v", r)
+
+	// err := c.Insert(&record)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
 	ShowAllTodos(w, r)
 }

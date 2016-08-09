@@ -1,27 +1,73 @@
 document.addEventListener("DOMContentLoaded", () => {
-    function sendData() {
-        let xhr = new XMLHttpRequest()
-
-        let FD = new FormData(form)
-
-        console.log(FD)
-        xhr.addEventListener('load', (e) => {
-            alert(e.target.responseText)
-        })
-
-        xhr.addEventListener('error', (e) => {
-            alert("there has been a mistake!!")
-        })
-
-        xhr.open("POST", "/todos")
-
-        xhr.send(FD)
-    }
-
-    let form = document.getElementById('todoForm')
+    let form = document.querySelector('form')
     form.addEventListener('submit', (e) => {
         e.preventDefault()
 
-        sendData()
+        let request = new XMLHttpRequest()
+        let inputEls = document.getElementsByClassName('formVal')
+        let data = {}
+
+        for (let i = 0; i < inputEls.length; i++) {
+            data[inputEls[i].name] = inputEls[i].value
+        }
+
+        let params = Object.keys(data).map(
+            (k) => {
+                return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+            }
+        ).join("&")
+
+
+
+        let failure = (reqStatus) => {
+            console.error("Error: " + reqStatus)
+        }
+
+        request.onreadystatechange = () => {
+            const DONE = 4
+            const OK = 200
+            if (request.readyState === DONE) {
+                if (request.status === OK) {
+                    console.log(request)
+
+                    //window.location = "/todos"
+                } else {
+                    failure(request.status)
+                }
+            }
+        }
+
+
+        request.open("POST", "/todos")
+
+        request.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+
+        request.send(params)
     })
+    // // let sendData = function () {
+    //     let request = new XMLHttpRequest()
+
+    //     let FD = new FormData(form)
+
+    //     request.open("POST", "/todos")
+
+    //     let failure = (reqStatus) => {
+    //         console.error("Error: " + reqStatus)
+    //     }
+
+    //     request.onreadystatechange = () => {
+    //         const DONE = 4
+    //         const OK = 200
+    //         if (request.readyState === DONE) {
+    //             if (request.status === OK) {
+    //                 window.location = "/todos"
+    //             } else {
+    //                 failure(request.status)
+    //             }
+    //         }
+    //     }
+
+    //     request.send(FD)
+    // }
 })
