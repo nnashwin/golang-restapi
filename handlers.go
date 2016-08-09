@@ -42,18 +42,17 @@ func showTodoInHtml(w http.ResponseWriter, todo Todo) {
 }
 
 func ShowCreateTodoForm(w http.ResponseWriter, r *http.Request) {
-	t := template.New("form")
-	t, _ = t.ParseFiles("static/tmpl/form.html")
-	err := t.ExecuteTemplate(w, "form.html", nil)
+	err := templates.ExecuteTemplate(w, "form", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
-func TodoCreate(w http.ResponseWriter, r *http.Request) {
+func CreateTodo(w http.ResponseWriter, r *http.Request) {
 	// connect with mongoDb
 	session := NewSession("mongodb://localhost")
 	defer session.Close()
+
 	c := session.DB("test").C("todos")
 
 	r.ParseForm()

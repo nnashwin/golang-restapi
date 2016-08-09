@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let FD = new FormData(form)
 
+        console.log(FD)
         xhr.addEventListener('load', (e) => {
             alert(e.target.responseText)
         })

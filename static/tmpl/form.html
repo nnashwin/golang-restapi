@@ -1,10 +1,11 @@
+{{define "form"}}
 <!DOCTYPE html>
 <html>
 <head>
     {{template "form scripts"}}
 </head>
 <body>
-<form id="todoForm" action="/todos" method="post">
+<form id="todoForm">
     <legend>Add Todo</legend>
     <p>
         <input type="text" name="todoTitle" placeholder="name" value="" />
@@ -19,7 +20,8 @@
         <label for="todoId">Desired Id</label>
     </p>
     <input type="hidden" name="complete" value="false" />
-    <button type="submit" form="todoForm" />
+    <button type="submit" form="todoForm">Submit</button>
 </form>
 </body>
 </html>
+{{end}}

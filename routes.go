@@ -29,14 +29,14 @@ var routes = Routes{
 	Route{
 		"ShowCreateTodoForm",
 		"GET",
-		"/todos/createForm",
+		"/todoCreateForm",
 		ShowCreateTodoForm,
 	},
 	Route{
-		"TodoCreate",
+		"CreateTodo",
 		"POST",
 		"/todos",
-		TodoCreate,
+		CreateTodo,
 	},
 	Route{
 		"UpdateTodo",
