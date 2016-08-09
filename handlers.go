@@ -74,6 +74,7 @@ func HandleDelete(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	todoId := vars["todoId"]
 	DeleteTodo(w, r, todoId)
+	ShowAllTodos(w, r)
 }
 
 func DeleteTodo(w http.ResponseWriter, r *http.Request, todoId string) {
@@ -82,7 +83,6 @@ func DeleteTodo(w http.ResponseWriter, r *http.Request, todoId string) {
 
 	c := session.DB("test").C("todos")
 	c.Remove(bson.M{"id": todoId})
-
 }
 
 func UpdateTodo(w http.ResponseWriter, r *http.Request) {

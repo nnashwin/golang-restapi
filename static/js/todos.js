@@ -1,9 +1,3 @@
-function showTodos (todos) {
-    
-}
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
     let deleteButtons = document.getElementsByClassName('delete_button')
 
@@ -17,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const OK = 200
             if (xhr.readyState === DONE) {
                 if (xhr.status === OK) {
-                    console.log(xhr.responseText)
+                    window.location.reload(true)
                 } else {
                     console.log("Error: " + xhr.status)
                 }

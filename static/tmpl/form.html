@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {{template "form scripts"}}
 </head>
 <body>
 <form id="todoForm" action="/todos" method="post">
@@ -18,7 +19,7 @@
         <label for="todoId">Desired Id</label>
     </p>
     <input type="hidden" name="complete" value="false" />
-    <input type="submit" form="todoForm" />
+    <button type="submit" form="todoForm" />
 </form>
 </body>
 </html>
