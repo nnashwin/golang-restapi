@@ -54,6 +54,7 @@ func HandleCreate(w http.ResponseWriter, r *http.Request) {
 	newTodo.Id = r.PostFormValue("todoId")
 	newTodo.Name = r.PostFormValue("todoTitle")
 	newTodo.Due = r.PostFormValue("completedBy")
+	newTodo.Description = r.PostFormValue("description")
 	newTodo.Completed = false
 
 	CreateTodo(w, r, newTodo)

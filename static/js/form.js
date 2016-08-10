@@ -17,8 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         ).join("&")
 
-
-
         let failure = (reqStatus) => {
             console.error("Error: " + reqStatus)
         }
@@ -34,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         }
-
 
         request.open("POST", "/todos")
 
