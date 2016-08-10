@@ -43,29 +43,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
         request.send(params)
     })
-    // // let sendData = function () {
-    //     let request = new XMLHttpRequest()
-
-    //     let FD = new FormData(form)
-
-    //     request.open("POST", "/todos")
-
-    //     let failure = (reqStatus) => {
-    //         console.error("Error: " + reqStatus)
-    //     }
-
-    //     request.onreadystatechange = () => {
-    //         const DONE = 4
-    //         const OK = 200
-    //         if (request.readyState === DONE) {
-    //             if (request.status === OK) {
-    //                 window.location = "/todos"
-    //             } else {
-    //                 failure(request.status)
-    //             }
-    //         }
-    //     }
-
-    //     request.send(FD)
-    // }
 })
