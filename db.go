@@ -46,9 +46,3 @@ func getAllRecords(dbName string, collName string) Todos {
 
 	return results
 }
-
-// type DB struct {
-
-// }
-
-// func SaveData ()

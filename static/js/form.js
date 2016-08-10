@@ -28,9 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const OK = 200
             if (request.readyState === DONE) {
                 if (request.status === OK) {
-                    console.log(request)
-
-                    //window.location = "/todos"
+                    window.location = "/todos"
                 } else {
                     failure(request.status)
                 }

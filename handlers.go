@@ -46,29 +46,32 @@ func ShowCreateTodoForm(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func CreateTodo(w http.ResponseWriter, r *http.Request) {
-	// connect with mongoDb
-	// session := NewSession("mongodb://localhost")
-	// defer session.Close()
-
-	//	c := session.DB("test").C("todos")
+func HandleCreate(w http.ResponseWriter, r *http.Request) {
+	var newTodo Todo
 
 	r.ParseForm()
-	log.Println(r.PostFormValue("todoId"))
-	log.Println(r.PostFormValue("todoTitle"))
-	log.Println(r.PostFormValue("completedBy"))
-	//	decoder := json.NewDecoder(r.Body)
 
-	var record Todo
+	newTodo.Id = r.PostFormValue("todoId")
+	newTodo.Name = r.PostFormValue("todoTitle")
+	newTodo.Due = r.PostFormValue("completedBy")
+	newTodo.Completed = false
 
-	log.Printf("%+v", r)
-
-	// err := c.Insert(&record)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+	CreateTodo(w, r, newTodo)
 
 	ShowAllTodos(w, r)
+}
+
+func CreateTodo(w http.ResponseWriter, r *http.Request, todo Todo) {
+	// connect with mongoDb
+	session := NewSession("mongodb://localhost")
+	defer session.Close()
+
+	c := session.DB("test").C("todos")
+
+	err := c.Insert(&todo)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func HandleDelete(w http.ResponseWriter, r *http.Request) {

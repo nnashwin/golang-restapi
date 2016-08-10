@@ -33,10 +33,10 @@ var routes = Routes{
 		ShowCreateTodoForm,
 	},
 	Route{
-		"CreateTodo",
+		"HandleCreate",
 		"POST",
 		"/todos",
-		CreateTodo,
+		HandleCreate,
 	},
 	Route{
 		"UpdateTodo",
