@@ -1,0 +1,24 @@
+body {
+    margin: 0px;
+}
+
+.header ul {
+    padding: 0px;
+    margin: 0px;
+}
+
+.header ul a {
+    margin-right: -4px;
+}
+
+.header-element {
+    list-style: none;
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    /* vertical-align: middle; */
+}
+
+.header-element a {
+    text-decoration: none;
+}

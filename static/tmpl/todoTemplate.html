@@ -6,9 +6,13 @@
         <div>
             <div>{{.Due}}</div>
             <div id="completeStatus">{{.Completed}}</div>
+            <input id="completeStatus" value={{.Completed}}>
+            <input id="todoId" value={{.Id}}>
+            <input id="description" value={{.Description}}>
             <div id="todoId">{{.Id}}</div>
             <div id="description">{{.Description}}</div>
-            <input class="delete_button" type="button" value="Delete">
+            <input class="save_button" type="button" value="Save">
+            <input class="delete_button" type="button" value="Complete">
         </div>
     {{ end }}
 {{end}}

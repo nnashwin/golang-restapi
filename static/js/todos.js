@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     for (let i = 0; i < deleteButtons.length; i++) {
         let deleteButton = deleteButtons[i]
-        var todoId = deleteButton.previousElementSibling.innerHTML
+        var todoId = deleteButton.previousElementSibling.previousElementSibling.innerHTML
         let xhr = new XMLHttpRequest()
 
         xhr.onreadystatechange = () => {

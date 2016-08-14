@@ -5,6 +5,16 @@
     {{template "todo scripts"}}
 </head>
 <body>
+    <div id="header">
+        <ul>
+            <li class="header-element">
+                <a href="/todoCreateForm">Create Todo</a>
+            </li>
+            <li class="header-element">
+                <a href="/todos">Todos</a>
+            </li>
+        </ul>
+    </div>
     <div id="tyler-div">
         {{template "todos" .}}
     </div>
