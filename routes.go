@@ -39,12 +39,6 @@ var routes = Routes{
 		HandleCreate,
 	},
 	Route{
-		"UpdateTodo",
-		"POST",
-		"/todos/update/{todoId}",
-		UpdateTodo,
-	},
-	Route{
 		"HandleDelete",
 		"DELETE",
 		"/todos/delete/id={todoId}",

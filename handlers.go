@@ -85,6 +85,12 @@ func HandleDelete(w http.ResponseWriter, r *http.Request) {
 func HandlePut(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	todoId := vars["todoId"]
+	UpdateTodo(w, r, todoId)
+}
+
+func UpdateTodo(w http.ResponseWriter, r *http.Request, todoId string) {
+	session := NewSession("mongodb://localhost")
+	defer session.Close()
 	log.Println(todoId)
 }
 
@@ -94,8 +100,4 @@ func DeleteTodo(w http.ResponseWriter, r *http.Request, todoId string) {
 
 	c := session.DB("test").C("todos")
 	c.Remove(bson.M{"id": todoId})
-}
-
-func UpdateTodo(w http.ResponseWriter, r *http.Request) {
-
 }
