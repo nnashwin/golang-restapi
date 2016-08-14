@@ -50,4 +50,10 @@ var routes = Routes{
 		"/todos/delete/id={todoId}",
 		HandleDelete,
 	},
+	Route{
+		"HandlePut",
+		"PUT",
+		"/todos/edit/id={todoId}",
+		HandlePut,
+	},
 }

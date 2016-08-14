@@ -82,6 +82,12 @@ func HandleDelete(w http.ResponseWriter, r *http.Request) {
 	ShowAllTodos(w, r)
 }
 
+func HandlePut(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	todoId := vars["todoId"]
+	log.Println(todoId)
+}
+
 func DeleteTodo(w http.ResponseWriter, r *http.Request, todoId string) {
 	session := NewSession("mongodb://localhost")
 	defer session.Close()
