@@ -47,7 +47,7 @@ var routes = Routes{
 	Route{
 		"HandlePut",
 		"PUT",
-		"/todos/edit/id={todoId}",
+		"/todos/edit/",
 		HandlePut,
 	},
 }

@@ -3,16 +3,14 @@
         <div>
             <h1>{{.Name}}</h1>
         </div>
-        <div>
-            <div>{{.Due}}</div>
-            <div id="completeStatus">{{.Completed}}</div>
-            <input id="completeStatus" value={{.Completed}}>
-            <input id="todoId" value={{.Id}}>
-            <input id="description" value={{.Description}}>
-            <div id="todoId">{{.Id}}</div>
-            <div id="description">{{.Description}}</div>
-            <input class="save_button" type="button" value="Save">
-            <input class="delete_button" type="button" value="Complete">
+        <div class="todo">
+            <input name="dueDate" type="date" value={{.Due}}>
+            <label for="completeStatus">Complete?</label> 
+            <input name="completeStatus" type="checkbox" value={{.Completed}}>
+            <input name="todoId" value={{.Id}}>
+            <input name="description" value={{.Description}}>
+            <input name="saveButton" type="button" value="Save">
+            <input name="deleteButton" type="button" value="Delete">
         </div>
     {{ end }}
 {{end}}

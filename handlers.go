@@ -9,6 +9,12 @@ import (
 	"net/http"
 )
 
+func check(e error) {
+	if e != nil {
+		log.Fatal(e)
+	}
+}
+
 type test_struct struct {
 	Test string
 }
@@ -83,9 +89,10 @@ func HandleDelete(w http.ResponseWriter, r *http.Request) {
 }
 
 func HandlePut(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	todoId := vars["todoId"]
-	UpdateTodo(w, r, todoId)
+	err := r.ParseForm()
+	check(err)
+	log.Println(r.Form)
+	//UpdateTodo(w, r, todoId)
 }
 
 func UpdateTodo(w http.ResponseWriter, r *http.Request, todoId string) {

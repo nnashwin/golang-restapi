@@ -1,24 +1,38 @@
 document.addEventListener('DOMContentLoaded', () => {
-    let deleteButtons = document.getElementsByClassName('delete_button')
+    var todos = document.getElementsByClassName('todo')
 
-    for (let i = 0; i < deleteButtons.length; i++) {
-        let deleteButton = deleteButtons[i]
-        var todoId = deleteButton.previousElementSibling.previousElementSibling.innerHTML
-        let xhr = new XMLHttpRequest()
+    for (let i = 0; i < todos.length; i++) {
+        let completeStatus = todos[i].children.completeStatus
+        completeStatus.addEventListener('click', (ev) => {
+            if (completeStatus.value === 'false') {
+                completeStatus.value = 'true'
+            } else {
+                completeStatus.value = 'false'
+            }
+        })
+    }
 
-        xhr.onreadystatechange = () => {
-            const DONE = 4
-            const OK = 200
-            if (xhr.readyState === DONE) {
-                if (xhr.status === OK) {
-                    window.location.reload(true)
-                } else {
-                    console.log("Error: " + xhr.status)
+    for (let i = 0; i < todos.length; i++) {
+
+        let todoId = todos[i].children.todoId.value
+        let deleteButton = todos[i].children.deleteButton
+
+        deleteButton.addEventListener('click', (ev) => {
+            let xhr = new XMLHttpRequest()
+
+            xhr.onreadystatechange = () => {
+                const DONE = 4
+                const OK = 200
+                if (xhr.readyState === DONE) {
+                    if (xhr.status === OK) {
+                        console.log('success')
+                        //window.location.reload(true)
+                    } else {
+                        console.log("Error: " + xhr.status)
+                    }
                 }
             }
-        }
-        xhr.open('DELETE', "/todos/delete/id=" + todoId)
-        deleteButton.addEventListener('click', (ev) => {
+            xhr.open('DELETE', "/todos/delete/id=" + todoId)
             console.log(xhr)
             xhr.send()
         })
@@ -28,29 +42,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let saveButtons = document.getElementsByClassName('save_button')
 
-    for (let i = 0; i < saveButtons.length; i++) {
-        let saveButton = saveButtons[i]
-        var todoId = saveButton.previousElementSibling.previousElementSibling.innerHTML
-        let xhr = new XMLHttpRequest()
+    for (let i = 0; i < todos.length; i++) {
+        let dueDate = todos[i].children.dueDate.value
+        let completeStatus = todos[i].children.completeStatus
+        
+        let todoId = todos[i].children.todoId.value
+        let description = encodeURI(todos[i].children.description.value)
 
-        xhr.onreadystatechange = () => {
-            const DONE = 4
-            const OK = 200
-            if (xhr.readyState === DONE) {
-                if (xhr.status === OK) {
-                    //window.location.reload(true)
-                } else {
-                    console.log("Error: " + xhr.status)
+        let saveButton = todos[i].children.saveButton
+
+        saveButton.addEventListener('click', (ev) => {
+            let xhr = new XMLHttpRequest()
+            let params = "dueDate=" + dueDate + "&completeStatus=" + completeStatus + "&todoId=" + todoId + "&description="+ description
+            console.log(params)
+
+            xhr.onreadystatechange = () => {
+                const DONE = 4
+                const OK = 200
+                if (xhr.readyState === DONE) {
+                    if (xhr.status === OK) {
+                        console.log('success')
+                        //window.location.reload(true)
+                    } else {
+                        console.log("Error: " + xhr.status)
+                    }
                 }
             }
-        }
-
-        xhr.open('PUT', "/todos/edit/id=" + todoId)
-        saveButton.addEventListener('click', (ev) => {
-            console.log(ev)
-            xhr.send()
+            xhr.open('PUT', "/todos/edit/")
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+            xhr.send(params)
         })
     }
-
 })
 
