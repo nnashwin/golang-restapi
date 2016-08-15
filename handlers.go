@@ -1,7 +1,6 @@
 package main
 
 import (
-	//	"encoding/json"
 	"github.com/gorilla/mux"
 	"gopkg.in/mgo.v2/bson"
 	"html/template"
@@ -95,19 +94,25 @@ func HandlePut(w http.ResponseWriter, r *http.Request) {
 	check(err)
 	updatedTodo.Id = r.PostFormValue("todoId")
 	updatedTodo.Name = r.PostFormValue("todoName")
-	updatedTodo.Desc = r.PostFormValue("todoId")
+	updatedTodo.Desc = r.PostFormValue("description")
 	updatedTodo.Due = r.PostFormValue("dueDate")
 
 	complete, err := strconv.ParseBool(r.PostFormValue("completeStatus"))
 	check(err)
 	updatedTodo.Completed = complete
 
-	//UpdateTodo(w, r, updatedTodo)
+	UpdateTodo(w, r, updatedTodo)
 }
 
 func UpdateTodo(w http.ResponseWriter, r *http.Request, todo Todo) {
 	session := NewSession("mongodb://localhost")
 	defer session.Close()
+
+	c := session.DB("test").C("todos")
+	log.Println("getting that session")
+	log.Printf("%+v", todo)
+	c.Update(bson.M{"id": todo.Id}, todo)
+
 }
 
 func DeleteTodo(w http.ResponseWriter, r *http.Request, todoId string) {

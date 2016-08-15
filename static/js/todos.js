@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         saveButton.addEventListener('click', (ev) => {
             let dueDate = todos[i].children.dueDate.value
             let todoId = todos[i].children.todoId.value
+            console.log(todos[i].children)
             let todoName = encodeURI(todos[i].children.todoName.value)
             let description = encodeURI(todos[i].children.description.value)
             let completeStatus = todos[i].children.completeStatus.value

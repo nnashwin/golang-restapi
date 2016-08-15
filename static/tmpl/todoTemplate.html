@@ -4,6 +4,7 @@
             <h1>{{.Name}}</h1>
         </div>
         <div class="todo">
+            <input name="todoName" type="hidden" value={{.Name}}>
             <input name="dueDate" type="date" value={{.Due}}>
             <label for="completeStatus">Complete?</label> 
             <input name="completeStatus" type="checkbox" value={{.Completed}}>
