@@ -90,9 +90,12 @@ func HandleDelete(w http.ResponseWriter, r *http.Request) {
 
 func HandlePut(w http.ResponseWriter, r *http.Request) {
 	var updatedTodo Todo
+
+	vars := mux.Vars(r)
+	updatedTodo.Id = vars["todoId"]
+
 	err := r.ParseForm()
 	check(err)
-	updatedTodo.Id = r.PostFormValue("todoId")
 	updatedTodo.Name = r.PostFormValue("todoName")
 	updatedTodo.Desc = r.PostFormValue("description")
 	updatedTodo.Due = r.PostFormValue("dueDate")
@@ -109,8 +112,6 @@ func UpdateTodo(w http.ResponseWriter, r *http.Request, todo Todo) {
 	defer session.Close()
 
 	c := session.DB("test").C("todos")
-	log.Println("getting that session")
-	log.Printf("%+v", todo)
 	c.Update(bson.M{"id": todo.Id}, todo)
 
 }

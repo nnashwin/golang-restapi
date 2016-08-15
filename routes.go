@@ -41,13 +41,13 @@ var routes = Routes{
 	Route{
 		"HandleDelete",
 		"DELETE",
-		"/todos/delete/id={todoId}",
+		"/todos/{todoId}",
 		HandleDelete,
 	},
 	Route{
 		"HandlePut",
 		"PUT",
-		"/todos/edit/",
+		"/todos/{todoId}",
 		HandlePut,
 	},
 }

@@ -8,7 +8,7 @@
             <input name="dueDate" type="date" value={{.Due}}>
             <label for="completeStatus">Complete?</label> 
             <input name="completeStatus" type="checkbox" value={{.Completed}}>
-            <input name="todoId" value={{.Id}}>
+            <div name="todoId">{{.Id}}</div>
             <input name="description" value={{.Desc}}>
             <input name="saveButton" type="button" value="Save">
             <input name="deleteButton" type="button" value="Delete">
