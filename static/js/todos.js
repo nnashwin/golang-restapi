@@ -13,9 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     for (let i = 0; i < todos.length; i++) {
-
         let todoId = todos[i].children.todoId.value
         let deleteButton = todos[i].children.deleteButton
+        console.log(deleteButton)
 
         deleteButton.addEventListener('click', (ev) => {
             let xhr = new XMLHttpRequest()
@@ -43,18 +43,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let saveButtons = document.getElementsByClassName('save_button')
 
     for (let i = 0; i < todos.length; i++) {
-        let dueDate = todos[i].children.dueDate.value
-        let completeStatus = todos[i].children.completeStatus
-        
-        let todoId = todos[i].children.todoId.value
-        let description = encodeURI(todos[i].children.description.value)
-
-        let saveButton = todos[i].children.saveButton
+            let saveButton = todos[i].children.saveButton
 
         saveButton.addEventListener('click', (ev) => {
+            let dueDate = todos[i].children.dueDate.value
+            let todoId = todos[i].children.todoId.value
+            let todoName = encodeURI(todos[i].children.todoName.value)
+            let description = encodeURI(todos[i].children.description.value)
+            let completeStatus = todos[i].children.completeStatus.value
+            let params = "todoName=" + todoName + "&dueDate=" + dueDate + "&completeStatus=" + completeStatus + "&todoId=" + todoId + "&description="+ description
+
+
             let xhr = new XMLHttpRequest()
-            let params = "dueDate=" + dueDate + "&completeStatus=" + completeStatus + "&todoId=" + todoId + "&description="+ description
-            console.log(params)
 
             xhr.onreadystatechange = () => {
                 const DONE = 4

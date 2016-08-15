@@ -7,6 +7,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 func check(e error) {
@@ -60,7 +61,7 @@ func HandleCreate(w http.ResponseWriter, r *http.Request) {
 	newTodo.Id = r.PostFormValue("todoId")
 	newTodo.Name = r.PostFormValue("todoTitle")
 	newTodo.Due = r.PostFormValue("completedBy")
-	newTodo.Description = r.PostFormValue("description")
+	newTodo.Desc = r.PostFormValue("description")
 	newTodo.Completed = false
 
 	CreateTodo(w, r, newTodo)
@@ -89,16 +90,24 @@ func HandleDelete(w http.ResponseWriter, r *http.Request) {
 }
 
 func HandlePut(w http.ResponseWriter, r *http.Request) {
+	var updatedTodo Todo
 	err := r.ParseForm()
 	check(err)
-	log.Println(r.Form)
-	//UpdateTodo(w, r, todoId)
+	updatedTodo.Id = r.PostFormValue("todoId")
+	updatedTodo.Name = r.PostFormValue("todoName")
+	updatedTodo.Desc = r.PostFormValue("todoId")
+	updatedTodo.Due = r.PostFormValue("dueDate")
+
+	complete, err := strconv.ParseBool(r.PostFormValue("completeStatus"))
+	check(err)
+	updatedTodo.Completed = complete
+
+	//UpdateTodo(w, r, updatedTodo)
 }
 
-func UpdateTodo(w http.ResponseWriter, r *http.Request, todoId string) {
+func UpdateTodo(w http.ResponseWriter, r *http.Request, todo Todo) {
 	session := NewSession("mongodb://localhost")
 	defer session.Close()
-	log.Println(todoId)
 }
 
 func DeleteTodo(w http.ResponseWriter, r *http.Request, todoId string) {
